@@ -1,0 +1,3 @@
+lol_homepage:
+    path:     /
+    defaults: { _controller: LolBundle:Default:index }

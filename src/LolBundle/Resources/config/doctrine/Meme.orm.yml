@@ -1,0 +1,26 @@
+LolBundle\Entity\Meme:
+    type: entity
+    table: null
+    repositoryClass: LolBundle\Repository\MemeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        image:
+            type: string
+            length: 255
+        nbUpVote:
+            type: integer
+        nbDownVote:
+            type: integer
+    oneToMany:
+        comments:
+            targetEntity: LolBundle\Entity\Comment
+            mappedBy: meme
+    lifecycleCallbacks: {  }

@@ -1,0 +1,21 @@
+LolBundle\Entity\Comment:
+    type: entity
+    table: null
+    repositoryClass: LolBundle\Repository\CommentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        content:
+            type: text
+    manyToOne:
+        meme:
+            targetEntity: LolBundle\Entity\Meme
+            inversedBy: comments
+            joinColumn:
+                name: meme_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

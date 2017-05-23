@@ -1,0 +1,4 @@
+LolBundle\Entity\Meme:
+    properties:
+        image:
+          - Image: ~
