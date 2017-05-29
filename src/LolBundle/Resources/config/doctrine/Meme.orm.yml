@@ -17,8 +17,12 @@ LolBundle\Entity\Meme:
             length: 255
         nbUpVote:
             type: integer
+            nullable: true
         nbDownVote:
             type: integer
+            nullable: true
+        date:
+            type: datetime
     oneToMany:
         comments:
             targetEntity: LolBundle\Entity\Comment

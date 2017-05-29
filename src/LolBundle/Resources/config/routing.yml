@@ -1,3 +1,7 @@
 lol_homepage:
     path:     /
-    defaults: { _controller: LolBundle:Default:index }
+    defaults: { _controller: LolBundle:Meme:index }
+
+lol_create_meme:
+    path:     /meme
+    defaults: { _controller: LolBundle:Meme:create }

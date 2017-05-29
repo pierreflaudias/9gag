@@ -23,7 +23,8 @@ docker run -d -p 3306 \
     --volumes-from data_mysql \
     -e MYSQL_USER=root \
     -e MYSQL_PASS=root \
-    -e ON_CREATE_DB=8lol
+    -e ON_CREATE_DB=8lol \
+    tutum/mysql
 ```
 
 ```bash

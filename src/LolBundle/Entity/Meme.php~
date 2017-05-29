@@ -25,6 +25,21 @@ class Meme
     private $image;
 
     /**
+     * @var int
+     */
+    private $nbUpVote;
+
+    /**
+     * @var int
+     */
+    private $nbDownVote;
+
+    /**
+     * @var \DateTime
+     */
+    private $date;
+
+    /**
      * @var array
      */
     private $comments;
@@ -97,9 +112,61 @@ class Meme
     }
 
     /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbUpVote()
+    {
+        return $this->nbUpVote;
+    }
+
+    /**
+     * @param int $nbUpVote
+     */
+    public function setNbUpVote($nbUpVote)
+    {
+        $this->nbUpVote = $nbUpVote;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbDownVote()
+    {
+        return $this->nbDownVote;
+    }
+
+    /**
+     * @param int $nbDownVote
+     */
+    public function setNbDownVote($nbDownVote)
+    {
+        $this->nbDownVote = $nbDownVote;
+    }
+
+    /**
      * @return array
      */
-    public function getComments(): array
+    public function getComments()
     {
         return $this->comments;
     }
@@ -111,5 +178,28 @@ class Meme
     {
         $this->comments = $comments;
     }
-}
 
+    /**
+     * Add comment
+     *
+     * @param \LolBundle\Entity\Comment $comment
+     *
+     * @return Meme
+     */
+    public function addComment(\LolBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \LolBundle\Entity\Comment $comment
+     */
+    public function removeComment(\LolBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+}

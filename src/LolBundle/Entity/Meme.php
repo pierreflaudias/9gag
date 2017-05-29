@@ -3,6 +3,7 @@
 namespace LolBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Meme
@@ -35,6 +36,11 @@ class Meme
     private $nbDownVote;
 
     /**
+     * @var \DateTime
+     */
+    private $date;
+
+    /**
      * @var array
      */
     private $comments;
@@ -45,6 +51,9 @@ class Meme
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->date = new \DateTime();
+        $this->nbDownVote = 0;
+        $this->nbUpVote = 0;
     }
 
 
@@ -107,9 +116,29 @@ class Meme
     }
 
     /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     */
+    public function setDate(DateTime $date)
+    {
+        $this->date = $date;
+    }
+
+    /**
      * @return int
      */
-    public function getNbUpVote(): int
+    public function getNbUpVote()
     {
         return $this->nbUpVote;
     }
@@ -117,7 +146,7 @@ class Meme
     /**
      * @param int $nbUpVote
      */
-    public function setNbUpVote(int $nbUpVote)
+    public function setNbUpVote($nbUpVote)
     {
         $this->nbUpVote = $nbUpVote;
     }
@@ -125,7 +154,7 @@ class Meme
     /**
      * @return int
      */
-    public function getNbDownVote(): int
+    public function getNbDownVote()
     {
         return $this->nbDownVote;
     }
@@ -133,7 +162,7 @@ class Meme
     /**
      * @param int $nbDownVote
      */
-    public function setNbDownVote(int $nbDownVote)
+    public function setNbDownVote($nbDownVote)
     {
         $this->nbDownVote = $nbDownVote;
     }
@@ -141,7 +170,7 @@ class Meme
     /**
      * @return array
      */
-    public function getComments(): array
+    public function getComments()
     {
         return $this->comments;
     }

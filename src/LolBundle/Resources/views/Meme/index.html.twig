@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>8lol</h1>
+    <ul>
+        {% for meme in memes %}
+            <li>{{ meme.title }}</li>
+        {% else %}
+            Pas de memes
+        {% endfor %}
+    </ul>
+{% endblock %}

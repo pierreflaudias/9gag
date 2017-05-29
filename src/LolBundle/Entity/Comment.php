@@ -18,6 +18,11 @@ class Comment
     private $content;
 
     /**
+     * @var \DateTime
+     */
+    private $date;
+
+    /**
      * @var Meme
      */
     private $meme;
@@ -58,9 +63,29 @@ class Comment
     }
 
     /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
+    /**
      * @return Meme
      */
-    public function getMeme(): Meme
+    public function getMeme()
     {
         return $this->meme;
     }
@@ -69,7 +94,7 @@ class Comment
      * @param Meme $meme
      * @return Comment
      */
-    public function setMeme(Meme $meme): Comment
+    public function setMeme(Meme $meme)
     {
         $this->meme = $meme;
 
