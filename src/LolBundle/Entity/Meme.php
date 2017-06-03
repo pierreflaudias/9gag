@@ -41,6 +41,11 @@ class Meme
     private $date;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * @var array
      */
     private $comments;
@@ -133,6 +138,26 @@ class Meme
     public function setDate(DateTime $date)
     {
         $this->date = $date;
+    }
+
+    /**
+     * Get date
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set date
+     *
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
     }
 
     /**

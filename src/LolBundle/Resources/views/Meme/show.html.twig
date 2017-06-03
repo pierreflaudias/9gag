@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>8lol</h1>
+    <h2>{{ meme.title }}</h2>
+    <img src="{{ asset('uploads/memes/' ~ meme.image) }}">
+{% endblock %}

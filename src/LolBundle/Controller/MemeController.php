@@ -54,4 +54,14 @@ class MemeController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    public function showAction($id)
+    {
+        $repo = $this->getDoctrine()->getRepository('LolBundle:Meme');
+        $meme = $repo->findOneById($id);
+        return $this->render('LolBundle:Meme:show.html.twig', [
+                'meme' => $meme
+            ]
+        );
+    }
 }

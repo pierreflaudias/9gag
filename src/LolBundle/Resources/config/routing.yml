@@ -2,6 +2,16 @@ lol_homepage:
     path:     /
     defaults: { _controller: LolBundle:Meme:index }
 
+lol_show_meme:
+    path:     /meme/{id}
+    defaults: { _controller: LolBundle:Meme:show }
+    requirements:
+        id: '\d+'
+
 lol_create_meme:
     path:     /meme
     defaults: { _controller: LolBundle:Meme:create }
+
+lol_register_user:
+    path: /user
+    defaults: { _controller: LolBundle:User:register }
