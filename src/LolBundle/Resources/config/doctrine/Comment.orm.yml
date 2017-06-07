@@ -20,4 +20,9 @@ LolBundle\Entity\Comment:
             joinColumn:
                 name: meme_id
                 referencedColumnName: id
+        user:
+            targetEntity: LolBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
     lifecycleCallbacks: {  }

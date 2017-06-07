@@ -33,7 +33,7 @@ class User implements UserInterface , \Serializable
     /**
      * @var bool
      */
-    private $isActive;
+    //private $isActive;
 
 
     public function __construct()
@@ -134,7 +134,7 @@ class User implements UserInterface , \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER', 'ROLE_ADMIN');
+        return array('ROLE_USER');
     }
 
     /**
@@ -168,22 +168,22 @@ class User implements UserInterface , \Serializable
      *
      * @return User
      */
-    public function setIsActive($isActive)
+    /*public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
 
         return $this;
-    }
+    }*/
 
     /**
      * Get isActive
      *
      * @return bool
      */
-    public function getIsActive()
+    /*public function getIsActive()
     {
         return $this->isActive;
-    }
+    }*/
 
     public function eraseCredentials()
     {

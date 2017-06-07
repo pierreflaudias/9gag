@@ -41,4 +41,17 @@ class UserController extends Controller
             ]
         );
     }
+
+    public function showAction($id)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+        $repo = $this->getDoctrine()->getRepository('LolBundle:User');
+        $user = $repo->find($id);
+        return $this->render('LolBundle:User:show.html.twig', [
+            'user' => $user
+        ]);
+
+    }
 }

@@ -6,12 +6,31 @@ lol_show_meme:
     path:     /meme/{id}
     defaults: { _controller: LolBundle:Meme:show }
     requirements:
-        id: '\d+'
+        id: \d+
 
 lol_create_meme:
     path:     /meme
     defaults: { _controller: LolBundle:Meme:create }
 
+lol_update_meme:
+    path: /meme/{id}
+    defaults: { _controller: LolBundle:Meme:update }
+    requirements:
+        id: \d+
+
+lol_note_meme:
+    path: /meme/{id}/{note}
+    defaults: { _controller: LolBundle:Meme:note }
+    requirements:
+        id: \d+
+        note: upvote|downvote
+
 lol_register_user:
     path: /user
     defaults: { _controller: LolBundle:User:register }
+
+lol_show_user:
+    path: /user/{id}
+    defaults: { _controller: LolBundle:User:show }
+    requirements:
+          id: \d+

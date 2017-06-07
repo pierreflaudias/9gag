@@ -20,6 +20,6 @@ LolBundle\Entity\User:
             type: string
             length: 255
             unique: true
-        isActive:
-            type: boolean
+        #isActive:
+        #    type: boolean
     lifecycleCallbacks: {  }

@@ -23,8 +23,16 @@ LolBundle\Entity\Meme:
             nullable: true
         date:
             type: datetime
+
     oneToMany:
         comments:
             targetEntity: LolBundle\Entity\Comment
             mappedBy: meme
+
+    manyToOne:
+        user:
+            targetEntity: LolBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
     lifecycleCallbacks: {  }

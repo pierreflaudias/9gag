@@ -27,6 +27,16 @@ class Comment
      */
     private $meme;
 
+    /**
+     * @var User
+     */
+    private $user;
+
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
 
     /**
      * Get id
@@ -99,5 +109,25 @@ class Comment
         $this->meme = $meme;
 
         return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
     }
 }

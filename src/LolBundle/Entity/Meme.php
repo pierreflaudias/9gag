@@ -141,7 +141,7 @@ class Meme
     }
 
     /**
-     * Get date
+     * Get user
      *
      * @return User
      */
@@ -151,7 +151,7 @@ class Meme
     }
 
     /**
-     * Set date
+     * Set user
      *
      * @param User $user
      */
@@ -176,6 +176,11 @@ class Meme
         $this->nbUpVote = $nbUpVote;
     }
 
+    public function upVote()
+    {
+        $this->nbUpVote++;
+    }
+
     /**
      * @return int
      */
@@ -190,6 +195,11 @@ class Meme
     public function setNbDownVote($nbDownVote)
     {
         $this->nbDownVote = $nbDownVote;
+    }
+
+    public function downVote()
+    {
+        $this->nbDownVote++;
     }
 
     /**
