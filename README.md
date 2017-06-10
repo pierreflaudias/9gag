@@ -28,8 +28,10 @@ docker run -d -p 3306 \
 ```
 
 ```bash
+composer install
 php bin/console doctrine:schema:update --force
 php bin/console server:start
+bower install
 ```
 
 Browse to : [http://localhost:8000/](http://localhost:8000/)

@@ -31,14 +31,12 @@ class User implements UserInterface , \Serializable
     private $email;
 
     /**
-     * @var bool
+     * @var string
      */
-    //private $isActive;
-
+    private $apiKey;
 
     public function __construct()
     {
-        $this->isActive = true;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid(null, true));
     }
@@ -161,30 +159,6 @@ class User implements UserInterface , \Serializable
         return $this->email;
     }
 
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     *
-     * @return User
-     */
-    /*public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }*/
-
-    /**
-     * Get isActive
-     *
-     * @return bool
-     */
-    /*public function getIsActive()
-    {
-        return $this->isActive;
-    }*/
-
     public function eraseCredentials()
     {
     }
@@ -201,7 +175,9 @@ class User implements UserInterface , \Serializable
         ));
     }
 
-    /** @see \Serializable::unserialize() */
+    /** @see \Serializable::unserialize()
+     * @param string $serialized
+     */
     public function unserialize($serialized)
     {
         list (

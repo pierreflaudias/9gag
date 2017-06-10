@@ -6,6 +6,8 @@ parameters:
 services:
     negotiator:
         class: LolBundle\Service\MediaTypeNegotiator
+    app.token_authenticator:
+        class: LolBundle\Security\TokenAuthenticator
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
 #    _defaults:
 #        autowire: true

@@ -7,6 +7,7 @@
         <p><a href="{{ path('lol_note_meme', { id: meme.id, note: 'downvote'}) }}">Downvote</a> {{ meme.nbDownVote }}-</p>
     </div>
     <img src="{{ asset('uploads/memes/' ~ meme.image) }}">
+    <span>By {{ meme.user.username }}</span>
     <ul>
         {% for comment in meme.comments %}
             <li><p>{{ comment.content }}</p> by {% if comment.user %} {{ comment.user.username }} {% else %} anon. {% endif %}</li>

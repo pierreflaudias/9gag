@@ -11,6 +11,7 @@ security:
             entity:
                 class: LolBundle:User
                 property: username
+                property: apiKey
 
     firewalls:
         #secured_area:
@@ -27,12 +28,21 @@ security:
             # activate different ways to authenticate
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            http_basic: ~
+            #http_basic: ~
             #provider: db_provider
 
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            #form_login: ~
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path:   /logout
+                target: /
+
+            guard:
+                authenticators:
+                    - app.token_authenticator
 
     access_control:
         # require ROLE_ADMIN for /admin*
-        - { path: ^/meme$, roles: ROLE_ADMIN }
+        - { path: ^/meme$, roles: ROLE_USER }
