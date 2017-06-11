@@ -188,5 +188,22 @@ class User implements UserInterface , \Serializable
             // $this->salt
             ) = unserialize($serialized);
     }
+
+    /**
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @param string $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+        return $this;
+    }
 }
 

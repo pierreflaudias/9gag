@@ -17,3 +17,7 @@
 .idea/
 /web/assets/vendor/
 !/web/assets/vendor/.gitkeep
+/web/uploads
+!/web/uploads/memes/a11c6cc8a446e573b2d1f0fa1aa234e1.jpg
+!/web/uploads/memes/ae2d99f559df35940b209ad8f29e664b.jpg
+!/web/uploads/memes/126995887f44982c91ef485506a94386.png

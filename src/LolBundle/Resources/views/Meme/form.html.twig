@@ -1,7 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <h2>Créer un nouveau LOL</h2>
+    <form class="form-horizontal" method="post">
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            <div class="col-sm-10">
+                {{ form_errors(form.title, { 'attr': {'class': 'help-block'} }) }}
+                {{ form_widget(form.title) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.image) }}
+            <div class="col-sm-10">
+                {{ form_errors(form.image, { 'attr': {'class': 'help-block'} }) }}
+                {{ form_widget(form.image) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                {{ form_widget(form.save) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </form>
 {% endblock %}

@@ -41,12 +41,13 @@ class MemeController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $accept = isset($request->server->getHeaders()['ACCEPT']) ? $request->server->getHeaders()['ACCEPT'] : null;
         $memes = $this->getDoctrine()->getRepository('LolBundle:Meme')
             ->findBy([],['date' => 'DESC'], 5, 0);
 
-        if ($this->negotiator->guessBestFormat() == MediaTypeNegotiator::APPLICATION_JSON) {
+        if ($this->negotiator->guessBestFormat($accept) == MediaTypeNegotiator::APPLICATION_JSON) {
             return new JsonResponse(['memes' => $this->serializer->serialize($memes, 'json')]);
         } elseif ($this->negotiator->guessBestFormat() == MediaTypeNegotiator::TEXT_HTML) {
             return $this->render('LolBundle:Meme:index.html.twig', [
@@ -63,6 +64,9 @@ class MemeController extends Controller
      */
     public function noteAction($id, $note)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
         $em = $this->getDoctrine()->getManager();
         $repo =$em->getRepository('LolBundle:Meme');
         $meme = $repo->find($id);
@@ -74,6 +78,7 @@ class MemeController extends Controller
         $em->persist($meme);
         $em->flush();
         return $this->redirectToRoute('lol_show_meme', [
+            '_prefix' => '',
             'id' => $meme->getId()
         ]);
     }
@@ -129,7 +134,7 @@ class MemeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($meme);
             $em->flush();
-            return $this->redirectToRoute('lol_homepage');
+            return $this->redirectToRoute('lol_homepage', [ '_prefix' => '' ]);
         }
 
         return $this->render(
@@ -152,6 +157,9 @@ class MemeController extends Controller
         $form = $this->createForm(CommentType::class, $comment);
 
         if ($form->handleRequest($request)->isValid()) {
+            if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+                throw $this->createAccessDeniedException();
+            }
             $em = $this->getDoctrine()->getManager();
             if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
                 $comment->setUser($this->getUser());
@@ -160,6 +168,7 @@ class MemeController extends Controller
             $em->persist($comment);
             $em->flush();
             return $this->redirectToRoute('lol_show_meme', [
+                '_prefix' => '',
                 'id' => $meme->getId()
             ]);
         }

@@ -21,10 +21,17 @@ class MemeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $label_class = [ 'class' => 'col-sm-2 control-label' ];
+        $input_class = [ 'class' => 'form-control' ];
         $builder
-            ->add('title', TextType::class)
+            ->add('title', TextType::class, [
+                'label_attr' => $label_class,
+                'attr' => $input_class,
+            ])
             ->add('image', FileType::class)
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, [
+                'attr' => [ 'class' => 'btn btn-success' ],
+            ])
         ;
     }
 

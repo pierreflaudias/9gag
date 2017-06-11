@@ -14,14 +14,11 @@ class MediaTypeNegotiator
     const TEXT_HTML = "text/html";
     const APPLICATION_JSON = "application/json";
 
-    public function guessBestFormat()
+    public function guessBestFormat($accept)
     {
         $negotiator = new \Negotiation\Negotiator();
-        if (isset($_SERVER['HTTP_ACCEPT'])) {
-            $accept_header = $_SERVER['HTTP_ACCEPT'];
-        } else {
-            $accept_header = 'text/html, application/json, application/x-www-form-urlencoded';
-        }
+        $accept_header = ($accept !== null) ? $accept : 'text/html, application/json, application/x-www-form-urlencoded';
+
         $priorities = array('text/html', 'application/json', 'application/x-www-form-urlencoded');
         $media_type = $negotiator->getBest($accept_header, $priorities);
         return $media_type->getValue();

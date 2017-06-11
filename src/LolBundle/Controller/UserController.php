@@ -34,7 +34,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('lol_homepage');
+            return $this->redirectToRoute('lol_homepage', [ '_prefix' => '' ]);
         }
 
         return $this->render('LolBundle:User:register.html.twig',[

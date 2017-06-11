@@ -2,21 +2,47 @@
 
 {% block body %}
     <h2>{{ meme.title }}</h2>
-    <div>
-        <p><a href="{{ path('lol_note_meme', { id: meme.id, note: 'upvote'}) }}">Upvote</a> {{ meme.nbUpVote }}+</p>
-        <p><a href="{{ path('lol_note_meme', { id: meme.id, note: 'downvote'}) }}">Downvote</a> {{ meme.nbDownVote }}-</p>
+    <div class="row">
+        <div class="col-sm-6"><a class="btn btn-success" href="{{ path('lol_note_meme', { _prefix: '', id: meme.id, note: 'upvote'}) }}">Upvote : {{ meme.nbUpVote }}</a></div>
+        <div class="col-sm-6"><a class="btn btn-danger" href="{{ path('lol_note_meme', { _prefix: '', id: meme.id, note: 'downvote'}) }}">Downvote : {{ meme.nbDownVote }}</a></div>
     </div>
-    <img src="{{ asset('uploads/memes/' ~ meme.image) }}">
-    <span>By {{ meme.user.username }}</span>
-    <ul>
+    <hr/>
+    <div class="row">
+        <img class="img-responsive" src="{{ asset('uploads/memes/' ~ meme.image) }}">
+        <span class="lead">By {{ meme.user.username }}</span>
+    </div>
+    <hr/>
+
+    <h2>Comments :</h2>
+    <div class="container">
         {% for comment in meme.comments %}
-            <li><p>{{ comment.content }}</p> by {% if comment.user %} {{ comment.user.username }} {% else %} anon. {% endif %}</li>
+            <div class="row">
+                <div class="col-sm-2">{{ comment.user.username }} said the {{ comment.date | date("F jS \\a\\t g:ia") }}</div>
+                <div class="col-sm-10 well"><p>{{ comment.content }}</p></div>
+            </div>
         {% else %}
-            No comments. Be first to comment.
+            <div class="row">
+                <p>No comments. Be the first to comment.</p>
+            </div>
         {% endfor %}
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
-    </ul>
+
+        <form class="form-horizontal" method="post">
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.content) }}
+                <div class="col-sm-10">
+                    {{ form_errors(form.content, { 'attr': {'class': 'help-block'} }) }}
+                    {{ form_widget(form.content) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    {{ form_widget(form.save) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </form>
+    </div>
 
 {% endblock %}

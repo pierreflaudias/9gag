@@ -7,11 +7,16 @@ security:
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
+        #chain_provider:
+        #    chain:
+        #        providers: [db_provider, api_key_user_provider]
         db_provider:
             entity:
                 class: LolBundle:User
                 property: username
-                property: apiKey
+                #property: apiKey
+        #api_key_user_provider:
+        #    id: api_key_user_provider
 
     firewalls:
         #secured_area:
@@ -29,7 +34,7 @@ security:
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~
-            #provider: db_provider
+            provider: db_provider
 
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             form_login:
@@ -38,11 +43,23 @@ security:
             logout:
                 path:   /logout
                 target: /
-
+            #http_basic:
+                #authenticator: api_key_authenticator
+            #provider: api_key_user_provider
+        api:
+            pattern: ^/api/
             guard:
                 authenticators:
                     - app.token_authenticator
+        #api:
+        #    http_basic:
+                #authenticator: api_key_authenticator
+        #        provider: api_key_user_provider
 
     access_control:
         # require ROLE_ADMIN for /admin*
-        - { path: ^/meme$, roles: ROLE_USER }
+#        - { path: '^/', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: '^/login|logout', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/meme/[0-9]+$, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
+#        - { path: ^/meme/[0-9]+$, roles: ROLE_USER, methods: [POST] }
+#        - { path: '^/meme$', roles: ROLE_USER, methods: [POST] }

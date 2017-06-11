@@ -8,4 +8,3 @@ logout:
 lol:
     resource: "@LolBundle/Resources/config/routing.yml"
     prefix:   /
-

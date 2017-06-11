@@ -1,36 +1,46 @@
 lol_homepage:
-    path:     /
+    path:     /{_prefix}
     defaults: { _controller: LolBundle:Meme:index }
+    requirements:
+        _prefix: api|.{0}
 
 lol_show_meme:
-    path:     /meme/{id}
+    path:     /{_prefix}meme/{id}
     defaults: { _controller: LolBundle:Meme:show }
     requirements:
         id: \d+
+        _prefix: api/|.{0}
 
 lol_create_meme:
-    path:     /meme
+    path:     /{_prefix}meme
     defaults: { _controller: LolBundle:Meme:create }
+    requirements:
+        _prefix: api/|.{0}
 
 lol_update_meme:
-    path: /meme/{id}
+    path: /{_prefix}meme/{id}
     defaults: { _controller: LolBundle:Meme:update }
     requirements:
         id: \d+
+        _prefix: api/|.{0}
 
 lol_note_meme:
-    path: /meme/{id}/{note}
+    path: /{_prefix}meme/{id}/{note}
     defaults: { _controller: LolBundle:Meme:note }
     requirements:
         id: \d+
         note: upvote|downvote
+        _prefix: api/|.{0}
 
 lol_register_user:
-    path: /user
+    path: /{_prefix}register
     defaults: { _controller: LolBundle:User:register }
+    requirements:
+        _prefix: api/|.{0}
 
 lol_show_user:
-    path: /user/{id}
+    path: /{_prefix}user/{id}
     defaults: { _controller: LolBundle:User:show }
     requirements:
           id: \d+
+          _prefix: api/|.{0}

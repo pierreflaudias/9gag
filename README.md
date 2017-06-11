@@ -30,6 +30,7 @@ docker run -d -p 3306 \
 ```bash
 composer install
 php bin/console doctrine:schema:update --force
+php bin/console doctrine:fixtures:load
 php bin/console server:start
 bower install
 ```
