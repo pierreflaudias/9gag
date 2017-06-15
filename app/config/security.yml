@@ -15,8 +15,8 @@ security:
                 class: LolBundle:User
                 property: username
                 #property: apiKey
-        #api_key_user_provider:
-        #    id: api_key_user_provider
+        api_key_user_provider:
+            id: api_key_user_provider
 
     firewalls:
         #secured_area:
@@ -27,6 +27,15 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        api:
+            pattern: ^/api/meme(/[0-9]+/(upvote|downvote))$
+            stateless: true
+            anonymous: true
+            provider: api_key_user_provider
+            guard:
+                authenticators:
+                    - app.token_authenticator
 
         main:
             anonymous: ~
@@ -46,11 +55,6 @@ security:
             #http_basic:
                 #authenticator: api_key_authenticator
             #provider: api_key_user_provider
-        api:
-            pattern: ^/api/
-            guard:
-                authenticators:
-                    - app.token_authenticator
         #api:
         #    http_basic:
                 #authenticator: api_key_authenticator
@@ -63,3 +67,4 @@ security:
 #        - { path: ^/meme/[0-9]+$, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
 #        - { path: ^/meme/[0-9]+$, roles: ROLE_USER, methods: [POST] }
 #        - { path: '^/meme$', roles: ROLE_USER, methods: [POST] }
+         - { path: '^/api', roles: IS_AUTHENTICATED_ANONYMOUSLY }

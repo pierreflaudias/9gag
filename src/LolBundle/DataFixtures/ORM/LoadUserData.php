@@ -28,11 +28,13 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $user1->setUsername('admin');
         $user1->setPassword(password_hash('admin', PASSWORD_BCRYPT));
         $user1->setEmail('admin@8lol.com');
+        $user1->setApiKey(hash('sha256', $user1->getEmail() . $user1->getPassword()));
 
         $user2 = new User();
         $user2->setEmail('test@gmail.com');
         $user2->setUsername('test');
         $user2->setPassword(password_hash('test', PASSWORD_BCRYPT));
+        $user2->setApiKey(hash('sha256', $user2->getEmail() . $user2->getPassword()));
 
         $manager->persist($user1);
         $manager->persist($user2);

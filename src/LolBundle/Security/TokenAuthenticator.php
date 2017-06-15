@@ -111,9 +111,18 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
             return;
         }
 
+        if (!$userProvider instanceof ApiKeyUserProvider) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The user provider must be an instance of ApiKeyUserProvider (%s was given).',
+                    get_class($userProvider)
+                )
+            );
+        }
+
         // if null, authentication will fail
         // if a User object, checkCredentials() is called
-        return $userProvider->loadUserByUsername($apiKey);
+        return $userProvider->getUserForApiKey($apiKey);
     }
 
     /**

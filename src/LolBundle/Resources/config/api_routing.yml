@@ -1,0 +1,30 @@
+api_lol_homepage:
+    path:     /
+    defaults: { _controller: LolBundle:Api\Meme:index }
+
+api_lol_show_meme:
+    path:     /meme/{id}
+    defaults: { _controller: LolBundle:Api\Meme:show }
+    requirements:
+        id: \d+
+
+api_lol_create_meme:
+    path:     /meme
+    defaults: { _controller: LolBundle:Api\Meme:create }
+
+api_lol_note_meme:
+    path: /meme/{id}/{note}
+    defaults: { _controller: LolBundle:Api\Meme:note }
+    requirements:
+        id: \d+
+        note: upvote|downvote
+
+api_lol_register_user:
+    path: /register
+    defaults: { _controller: LolBundle:Api\User:register }
+
+api_lol_show_user:
+    path: /user/{id}
+    defaults: { _controller: LolBundle:Api\User:show }
+    requirements:
+          id: \d+

@@ -30,11 +30,13 @@ class UserController extends Controller
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
+            $user->setApiKey(hash('sha256', $user->getEmail() . $user->getPassword()));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('lol_homepage', [ '_prefix' => '' ]);
+            return $this->redirectToRoute('lol_homepage');
         }
 
         return $this->render('LolBundle:User:register.html.twig',[

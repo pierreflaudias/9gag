@@ -9,6 +9,8 @@
 namespace LolBundle\Security;
 
 
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\User;
@@ -16,17 +18,24 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class ApiKeyUserProvider implements UserProviderInterface
 {
-    public function getUsernameForApiKey($apiKey)
+    private $repository;
+    public function __construct(EntityRepository $repository)
     {
-        $repository = $this->getRepository();
-        $user = $repository->findOneByApiKey($apiKey);
-        return $user->getUsername();
+        $this->repository = $repository;
+    }
+
+    public function getUserForApiKey($apiKey)
+    {
+        $user = $this->repository->findOneByApiKey($apiKey);
+        if ($user == null){
+            throw new AccessDeniedException();
+        }
+        return $user;
     }
 
     public function loadUserByUsername($username)
     {
-        $repository = $this->getRepository();
-        return $repository->findOneByUsername($username);
+        return $this->repository->findOneByUsername($username);
     }
 
     public function refreshUser(UserInterface $user)

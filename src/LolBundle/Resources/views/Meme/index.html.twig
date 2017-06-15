@@ -4,11 +4,11 @@
     <div class="row">
         {% for meme in memes %}
             <div class="col-sm-4">
-                <h2><a href="{{ path('lol_show_meme', { _prefix: '', id: meme.id }) }}">{{ meme.title }}</a></h2>
+                <h2><a href="{{ path('lol_show_meme', { id: meme.id }) }}">{{ meme.title }}</a></h2>
                 <img src="{{ asset('uploads/memes/' ~ meme.image) }}">
             </div>
         {% else %}
-            Pas de memes
+            No memes.
         {% endfor %}
     </div>
 {% endblock %}

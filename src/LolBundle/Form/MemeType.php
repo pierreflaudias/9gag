@@ -28,7 +28,10 @@ class MemeType extends AbstractType
                 'label_attr' => $label_class,
                 'attr' => $input_class,
             ])
-            ->add('image', FileType::class)
+            ->add('image', FileType::class, [
+                'label_attr' => $label_class,
+                'attr' => $input_class,
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => [ 'class' => 'btn btn-success' ],
             ])

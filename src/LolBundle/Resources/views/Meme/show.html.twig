@@ -3,8 +3,8 @@
 {% block body %}
     <h2>{{ meme.title }}</h2>
     <div class="row">
-        <div class="col-sm-6"><a class="btn btn-success" href="{{ path('lol_note_meme', { _prefix: '', id: meme.id, note: 'upvote'}) }}">Upvote : {{ meme.nbUpVote }}</a></div>
-        <div class="col-sm-6"><a class="btn btn-danger" href="{{ path('lol_note_meme', { _prefix: '', id: meme.id, note: 'downvote'}) }}">Downvote : {{ meme.nbDownVote }}</a></div>
+        <div class="col-sm-6"><a class="btn btn-success" href="{{ path('lol_note_meme', { id: meme.id, note: 'upvote'}) }}">Upvote : {{ meme.nbUpVote }}</a></div>
+        <div class="col-sm-6"><a class="btn btn-danger" href="{{ path('lol_note_meme', { id: meme.id, note: 'downvote'}) }}">Downvote : {{ meme.nbDownVote }}</a></div>
     </div>
     <hr/>
     <div class="row">
