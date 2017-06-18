@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: pierre
  * Date: 09/06/17
- * Time: 00:17
+ * Time: 00:17.
  */
 
 namespace LolBundle\Security;
-
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +19,6 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
-
     /**
      * Returns a response that directs the user to authenticate.
      *
@@ -34,19 +32,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      *  B) For an API token authentication system, you return a 401 response
      *      return new Response('Auth header required', 401);
      *
-     * @param Request $request The request that resulted in an AuthenticationException
+     * @param Request                 $request       The request that resulted in an AuthenticationException
      * @param AuthenticationException $authException The exception that started the authentication process
      *
      * @return Response
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $data = array(
-            // you might translate this message
-            'message' => 'Authentication Required'
-        );
-
-        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
+        return new JsonResponse(['message' => 'Authentication Required'], Response::HTTP_UNAUTHORIZED);
     }
 
     /**
@@ -77,6 +70,11 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
+        $request_filter = '/^\/api\/(meme|user)(\/\d+\/(upvote|downvote|comment(\/\d+)|remove))?$/';
+
+        if (!preg_match($request_filter, $request->getPathInfo())) {
+            return;
+        }
         if (!$token = $request->headers->get('X-AUTH-TOKEN')) {
             // No token?
             $token = null;
@@ -96,7 +94,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
-     * @param mixed $credentials
+     * @param mixed                 $credentials
      * @param UserProviderInterface $userProvider
      *
      * @throws AuthenticationException
@@ -134,7 +132,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      *
      * The *credentials* are the return value from getCredentials()
      *
-     * @param mixed $credentials
+     * @param mixed         $credentials
      * @param UserInterface $user
      *
      * @return bool
@@ -159,7 +157,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      * If you return null, the request will continue, but the user will
      * not be authenticated. This is probably not what you want to do.
      *
-     * @param Request $request
+     * @param Request                 $request
      * @param AuthenticationException $exception
      *
      * @return Response|null
@@ -167,7 +165,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $data = array(
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),
 
             // or to translate this message
             // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
@@ -185,9 +183,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      * If you return null, the current request will continue, and the user
      * will be authenticated. This makes sense, for example, with an API.
      *
-     * @param Request $request
+     * @param Request        $request
      * @param TokenInterface $token
-     * @param string $providerKey The provider (i.e. firewall) key
+     * @param string         $providerKey The provider (i.e. firewall) key
      *
      * @return Response|null
      */

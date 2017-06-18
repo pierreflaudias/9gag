@@ -29,7 +29,7 @@ security:
             security: false
 
         api:
-            pattern: ^/api/meme(/[0-9]+/(upvote|downvote))$
+            pattern: ^/api
             stateless: true
             anonymous: true
             provider: api_key_user_provider
@@ -67,4 +67,4 @@ security:
 #        - { path: ^/meme/[0-9]+$, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET] }
 #        - { path: ^/meme/[0-9]+$, roles: ROLE_USER, methods: [POST] }
 #        - { path: '^/meme$', roles: ROLE_USER, methods: [POST] }
-         - { path: '^/api', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: '^/api/', roles: IS_AUTHENTICATED_ANONYMOUSLY }

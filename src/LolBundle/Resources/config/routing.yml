@@ -1,30 +1,43 @@
 lol_homepage:
     path:     /
-    defaults: { _controller: LolBundle:Meme:index }
+    defaults: { _controller: LolBundle:Website\Meme:index }
 
 lol_show_meme:
     path:     /meme/{id}
-    defaults: { _controller: LolBundle:Meme:show }
+    defaults: { _controller: LolBundle:Website\Meme:show }
     requirements:
         id: \d+
 
 lol_create_meme:
     path:     /meme
-    defaults: { _controller: LolBundle:Meme:create }
+    defaults: { _controller: LolBundle:Website\Meme:create }
+
+lol_remove_meme:
+    path:     /meme/{id}/remove
+    defaults: { _controller: LolBundle:Website\Meme:remove }
+    requirements:
+        id: \d+
+
+lol_remove_comment:
+    path:     /meme/{id}/comment/{comment_id}
+    defaults: { _controller: LolBundle:Website\Meme:removeComment }
+    requirements:
+        id: \d+
+        comment_id: \d+
 
 lol_note_meme:
     path: /meme/{id}/{note}
-    defaults: { _controller: LolBundle:Meme:note }
+    defaults: { _controller: LolBundle:Website\Meme:note }
     requirements:
         id: \d+
         note: upvote|downvote
 
 lol_register_user:
     path: /register
-    defaults: { _controller: LolBundle:User:register }
+    defaults: { _controller: LolBundle:Website\User:register }
 
 lol_show_user:
     path: /user/{id}
-    defaults: { _controller: LolBundle:User:show }
+    defaults: { _controller: LolBundle:Website\User:show }
     requirements:
           id: \d+

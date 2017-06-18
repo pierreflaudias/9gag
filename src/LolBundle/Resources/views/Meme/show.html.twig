@@ -3,13 +3,18 @@
 {% block body %}
     <h2>{{ meme.title }}</h2>
     <div class="row">
-        <div class="col-sm-6"><a class="btn btn-success" href="{{ path('lol_note_meme', { id: meme.id, note: 'upvote'}) }}">Upvote : {{ meme.nbUpVote }}</a></div>
-        <div class="col-sm-6"><a class="btn btn-danger" href="{{ path('lol_note_meme', { id: meme.id, note: 'downvote'}) }}">Downvote : {{ meme.nbDownVote }}</a></div>
+        <div class="col-sm-6"><a class="btn btn-primary" href="{{ path('lol_note_meme', { id: meme.id, note: 'upvote'}) }}">Upvote : {{ meme.nbUpVote }}</a></div>
+        <div class="col-sm-6"><a class="btn btn-warning" href="{{ path('lol_note_meme', { id: meme.id, note: 'downvote'}) }}">Downvote : {{ meme.nbDownVote }}</a></div>
     </div>
     <hr/>
     <div class="row">
-        <img class="img-responsive" src="{{ asset('uploads/memes/' ~ meme.image) }}">
-        <span class="lead">By {{ meme.user.username }}</span>
+        <div class="col-sm-10">
+            <img class="img-responsive" src="{{ asset('uploads/memes/' ~ meme.image) }}">
+            <span class="lead">By {{ meme.user.username }}</span>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-danger" href="{{ path('lol_remove_meme', {id: meme.id}) }}">DELETE</a>
+        </div>
     </div>
     <hr/>
 
@@ -17,8 +22,9 @@
     <div class="container">
         {% for comment in meme.comments %}
             <div class="row">
-                <div class="col-sm-2">{{ comment.user.username }} said the {{ comment.date | date("F jS \\a\\t g:ia") }}</div>
-                <div class="col-sm-10 well"><p>{{ comment.content }}</p></div>
+                <div class="col-sm-2"><b>{{ comment.user.username }}</b> said the {{ comment.date | date("F jS \\a\\t g:ia") }}</div>
+                <div class="col-sm-9 well"><p>{{ comment.content }}</p></div>
+                <div class="col-sm-1"><a class="btn btn-danger" href="{{ path('lol_remove_comment', {id: meme.id, comment_id: comment.id}) }}">DELETE</a></div>
             </div>
         {% else %}
             <div class="row">

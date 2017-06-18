@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
- * Meme
+ * Meme.
  */
 class Meme
 {
@@ -53,17 +53,18 @@ class Meme
     /**
      * Meme constructor.
      */
-    public function __construct()
+    public function __construct($title = null, $image = null)
     {
+        $this->title = $title;
+        $this->image = $image;
         $this->comments = new ArrayCollection();
         $this->date = new \DateTime();
         $this->nbDownVote = 0;
         $this->nbUpVote = 0;
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -73,7 +74,7 @@ class Meme
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -87,7 +88,7 @@ class Meme
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -97,7 +98,7 @@ class Meme
     }
 
     /**
-     * Set image
+     * Set image.
      *
      * @param string $image
      *
@@ -111,7 +112,7 @@ class Meme
     }
 
     /**
-     * Get image
+     * Get image.
      *
      * @return string
      */
@@ -121,7 +122,7 @@ class Meme
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -131,7 +132,7 @@ class Meme
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
      */
@@ -141,7 +142,7 @@ class Meme
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return User
      */
@@ -151,7 +152,7 @@ class Meme
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param User $user
      */
@@ -178,7 +179,7 @@ class Meme
 
     public function upVote()
     {
-        $this->nbUpVote++;
+        ++$this->nbUpVote;
     }
 
     /**
@@ -199,7 +200,7 @@ class Meme
 
     public function downVote()
     {
-        $this->nbDownVote++;
+        ++$this->nbDownVote;
     }
 
     /**
@@ -219,7 +220,7 @@ class Meme
     }
 
     /**
-     * Add comment
+     * Add comment.
      *
      * @param \LolBundle\Entity\Comment $comment
      *
@@ -233,7 +234,7 @@ class Meme
     }
 
     /**
-     * Remove comment
+     * Remove comment.
      *
      * @param \LolBundle\Entity\Comment $comment
      */

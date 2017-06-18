@@ -3,7 +3,7 @@
 namespace LolBundle\Entity;
 
 /**
- * Comment
+ * Comment.
  */
 class Comment
 {
@@ -32,14 +32,14 @@ class Comment
      */
     private $user;
 
-
-    public function __construct()
+    public function __construct($content = null)
     {
+        $this->content = $content;
         $this->date = new \DateTime();
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -49,7 +49,7 @@ class Comment
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -63,7 +63,7 @@ class Comment
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -73,7 +73,7 @@ class Comment
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -83,7 +83,7 @@ class Comment
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
      */
@@ -102,6 +102,7 @@ class Comment
 
     /**
      * @param Meme $meme
+     *
      * @return Comment
      */
     public function setMeme(Meme $meme)
@@ -112,7 +113,7 @@ class Comment
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return User
      */
@@ -122,7 +123,7 @@ class Comment
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param User $user
      */

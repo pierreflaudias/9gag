@@ -23,7 +23,7 @@ LolBundle\Entity\User:
         apiKey:
             type: string
             length: 255
-            #unique: true
+            unique: true
         #isActive:
         #    type: boolean
     lifecycleCallbacks: {  }

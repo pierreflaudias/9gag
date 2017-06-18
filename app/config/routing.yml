@@ -1,6 +1,6 @@
 login:
     path:     /login
-    defaults: { _controller: LolBundle:User:login }
+    defaults: { _controller: LolBundle:Website\User:login }
 
 logout:
     path:     /logout

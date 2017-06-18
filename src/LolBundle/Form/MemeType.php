@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: analbessar
  * Date: 29/05/17
- * Time: 10:48
+ * Time: 10:48.
  */
 
 namespace LolBundle\Form;
@@ -16,13 +16,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class MemeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $label_class = [ 'class' => 'col-sm-2 control-label' ];
-        $input_class = [ 'class' => 'form-control' ];
+        $label_class = ['class' => 'col-sm-2 control-label'];
+        $input_class = ['class' => 'form-control'];
         $builder
             ->add('title', TextType::class, [
                 'label_attr' => $label_class,
@@ -33,7 +32,7 @@ class MemeType extends AbstractType
                 'attr' => $input_class,
             ])
             ->add('save', SubmitType::class, [
-                'attr' => [ 'class' => 'btn btn-success' ],
+                'attr' => ['class' => 'btn btn-success'],
             ])
         ;
     }

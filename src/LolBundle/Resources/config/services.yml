@@ -21,3 +21,37 @@ services:
                 - '@lol.normalizer.user'
             1:
                 - '@lol.encoder.json'
+
+    meme_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - LolBundle\Entity\Meme
+
+    comment_repository:
+            class: Doctrine\ORM\EntityRepository
+            factory: ["@doctrine.orm.entity_manager", getRepository]
+            arguments:
+                - LolBundle\Entity\Comment
+
+    meme_reader:
+        class: 'LolBundle\Service\MemeReader'
+        arguments:
+            - '@meme_repository'
+
+    comment_reader:
+        class: LolBundle\Service\CommentReader
+        arguments:
+            - '@comment_repository'
+
+    meme_modifier:
+        class: LolBundle\Service\MemeModifier
+        arguments:
+            - '@service_container'
+            - '@doctrine.orm.entity_manager'
+
+    user_creator:
+        class: LolBundle\Service\UserCreator
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@security.password_encoder'

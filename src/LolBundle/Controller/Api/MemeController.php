@@ -3,51 +3,106 @@
  * Created by PhpStorm.
  * User: analbessar
  * Date: 15/06/17
- * Time: 09:53
+ * Time: 09:53.
  */
 
 namespace LolBundle\Controller\Api;
 
-
-use LolBundle\Controller\BaseMemeController;
+use LolBundle\Entity\Comment;
+use LolBundle\Entity\Meme;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class MemeController extends BaseMemeController
+class MemeController extends Controller
 {
-    public function indexAction(Request $request)
+    private $serializer;
+
+    public function setContainer(ContainerInterface $container = null)
     {
-        parent::indexAction($request);
-        return new Response($this->serializer->serialize($this->memes, 'json'), 200, ['Content-Type' => 'application/json']);
+        parent::setContainer($container);
+        $this->serializer = $this->get('lol.serializer.default');
+    }
+
+    public function indexAction()
+    {
+        $memes = $this->get('meme_reader')->getAll();
+
+        return new Response($this->serializer->serialize($memes, 'json'), 200, ['Content-Type' => 'application/json']);
     }
 
     public function noteAction($id, $note)
     {
-        parent::noteAction($id, $note);
-        if ($this->currentMeme == null) {
-            return new JsonResponse(json_encode(['message' => 'This LOL doesn\'t exist.']), 404);
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
         }
-        return new JsonResponse(['message' => 'You have marked ' . $note . ' for ' . $this->currentMeme->getTitle()]);
+        $meme = $this->get('meme_reader')->getOneById($id);
+        if ($meme != null) {
+            $this->get('meme_modifier')->noteOne($meme, $note);
+
+            return new JsonResponse(['message' => $this->getUser()->getUsername().' have marked '.$note.' for '.$meme->getTitle()]);
+        } else {
+            return new JsonResponse(['message' => 'This LOL doesn\'t exist.'], 404);
+        }
     }
 
-    public function showAction(Request $request, $id)
+    public function removeAction($id)
     {
-        parent::showAction($request, $id);
-        if ($this->currentMeme == null) {
-            return new Response(json_encode(['message' => 'This LOL doesn\'t exist.']), 404, ['Content-Type' => 'application/json']);
+        $meme = $this->get('meme_reader')->getOneById($id);
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser() !== $meme->getUser()) {
+            throw $this->createAccessDeniedException();
         }
-        return new Response($this->serializer->serialize($this->currentMeme, 'json'), 200, ['Content-Type' => 'application/json']);
+        $this->get('meme_modifier')->removeOne($meme);
+
+        return new JsonResponse(null, 204);
+    }
+
+    public function removeCommentAction($id, $comment_id)
+    {
+        $comment = $this->get('comment_reader')->getOneById($comment_id);
+        $meme = $this->get('meme_reader')->getOneById($id);
+
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser() !== $meme->getUser() || $this->getUser() !== $comment->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+        $this->get('meme_modifier')->removeComment($comment);
+
+        return new JsonResponse(null, 204);
+    }
+
+    public function showAction($id)
+    {
+        $meme = $this->get('meme_reader')->getOneById($id);
+        if ($meme == null) {
+            return new JsonResponse(['message' => 'This LOL doesn\'t exist.'], 404);
+        }
+
+        return new Response($this->serializer->serialize($meme, 'json'), 200, ['Content-Type' => 'application/json']);
     }
 
     public function createAction(Request $request)
     {
-        parent::createAction($request);
-        var_dump($request->getMethod());
-        if ($request->getMethod() != 'POST') {
-            //throw $this->c
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
         }
-        var_dump($request->getContent());
-        die;
+        $data = ['image' => $request->files->get('image'), 'title' => json_decode($request->get('content'))->title];
+        $meme = $this->serializer->denormalize($data, Meme::class, 'json');
+        $this->get('meme_modifier')->createOne($meme, $this->getUser());
+
+        return new JsonResponse(['message' => 'LOL '.$meme->getId().' created'], 201);
+    }
+
+    public function commentAction(Request $request, $id)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+        $meme = $this->get('meme_reader')->getOneById($id);
+        $comment = $this->serializer->deserialize($request->getContent(), Comment::class, 'json');
+        $this->get('meme_modifier')->addComment($meme, $this->getUser(), $comment);
+
+        return new JsonResponse(['message' => 'Comment added to LOL '.$meme->getId()], 201);
     }
 }

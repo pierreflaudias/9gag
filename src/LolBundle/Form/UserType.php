@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: analbessar
  * Date: 03/06/17
- * Time: 09:07
+ * Time: 09:07.
  */
 
 namespace LolBundle\Form;
@@ -22,8 +22,8 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $label_class = [ 'class' => 'col-sm-2 control-label' ];
-        $input_class = [ 'class' => 'form-control' ];
+        $label_class = ['class' => 'col-sm-2 control-label'];
+        $input_class = ['class' => 'form-control'];
         $builder
             ->add('email', EmailType::class, [
                 'label_attr' => $label_class,
@@ -35,12 +35,11 @@ class UserType extends AbstractType
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options'  => [ 'label' => 'Password', 'label_attr' => $label_class, 'attr' => $input_class, ],
-                'second_options' => [ 'label' => 'Repeat Password', 'label_attr' => $label_class, 'attr' => $input_class, ],
-
+                'first_options' => ['label' => 'Password', 'label_attr' => $label_class, 'attr' => $input_class],
+                'second_options' => ['label' => 'Repeat Password', 'label_attr' => $label_class, 'attr' => $input_class],
             ])
             ->add('save', SubmitType::class, [
-                'attr' => [ 'class' => 'btn btn-success' ],
+                'attr' => ['class' => 'btn btn-success'],
             ])
         ;
     }

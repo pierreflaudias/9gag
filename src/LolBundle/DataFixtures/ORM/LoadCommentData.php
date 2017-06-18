@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: pierre
  * Date: 10/06/17
- * Time: 20:32
+ * Time: 20:32.
  */
 
 namespace LolBundle\DataFixtures\ORM;
-
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -16,9 +15,8 @@ use LolBundle\Entity\Comment;
 
 class LoadCommentData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param ObjectManager $manager
      */
@@ -46,9 +44,9 @@ class LoadCommentData extends AbstractFixture implements OrderedFixtureInterface
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
     public function getOrder()
     {

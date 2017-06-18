@@ -2,13 +2,12 @@
 
 namespace LolBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * User
+ * User.
  */
-class User implements UserInterface , \Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -35,14 +34,15 @@ class User implements UserInterface , \Serializable
      */
     private $apiKey;
 
-    public function __construct()
+    public function __construct($username = null, $email = null, $plainPassword = null)
     {
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
+        $this->username = $username;
+        $this->email = $email;
+        $this->setPlainPassword($plainPassword);
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -52,7 +52,7 @@ class User implements UserInterface , \Serializable
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      *
@@ -66,7 +66,7 @@ class User implements UserInterface , \Serializable
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
@@ -76,7 +76,7 @@ class User implements UserInterface , \Serializable
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -90,7 +90,7 @@ class User implements UserInterface , \Serializable
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -104,7 +104,7 @@ class User implements UserInterface , \Serializable
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -114,7 +114,7 @@ class User implements UserInterface , \Serializable
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -136,7 +136,7 @@ class User implements UserInterface , \Serializable
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -150,7 +150,7 @@ class User implements UserInterface , \Serializable
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -180,7 +180,7 @@ class User implements UserInterface , \Serializable
      */
     public function unserialize($serialized)
     {
-        list (
+        list(
             $this->id,
             $this->username,
             $this->password,
@@ -203,7 +203,7 @@ class User implements UserInterface , \Serializable
     public function setApiKey($apiKey)
     {
         $this->apiKey = $apiKey;
+
         return $this;
     }
 }
-
