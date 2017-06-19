@@ -20,12 +20,18 @@ class MemeController extends Controller
 {
     private $serializer;
 
+    /**
+     * @inheritdoc
+     */
     public function setContainer(ContainerInterface $container = null)
     {
         parent::setContainer($container);
         $this->serializer = $this->get('lol.serializer.default');
     }
 
+    /**
+     * @return Response
+     */
     public function indexAction()
     {
         $memes = $this->get('meme_reader')->getAll();
@@ -33,6 +39,11 @@ class MemeController extends Controller
         return new Response($this->serializer->serialize($memes, 'json'), 200, ['Content-Type' => 'application/json']);
     }
 
+    /**
+     * @param $id
+     * @param $note
+     * @return JsonResponse
+     */
     public function noteAction($id, $note)
     {
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -48,6 +59,10 @@ class MemeController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
     public function removeAction($id)
     {
         $meme = $this->get('meme_reader')->getOneById($id);
@@ -59,6 +74,11 @@ class MemeController extends Controller
         return new JsonResponse(null, 204);
     }
 
+    /**
+     * @param $id
+     * @param $comment_id
+     * @return JsonResponse
+     */
     public function removeCommentAction($id, $comment_id)
     {
         $comment = $this->get('comment_reader')->getOneById($comment_id);
@@ -72,6 +92,10 @@ class MemeController extends Controller
         return new JsonResponse(null, 204);
     }
 
+    /**
+     * @param $id
+     * @return JsonResponse|Response
+     */
     public function showAction($id)
     {
         $meme = $this->get('meme_reader')->getOneById($id);
@@ -82,6 +106,10 @@ class MemeController extends Controller
         return new Response($this->serializer->serialize($meme, 'json'), 200, ['Content-Type' => 'application/json']);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function createAction(Request $request)
     {
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -94,6 +122,11 @@ class MemeController extends Controller
         return new JsonResponse(['message' => 'LOL '.$meme->getId().' created'], 201);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
     public function commentAction(Request $request, $id)
     {
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
