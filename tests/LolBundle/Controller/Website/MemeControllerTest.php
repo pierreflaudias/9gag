@@ -8,6 +8,15 @@
 
 namespace LolBundle\Controller\Website;
 
-class MemeControllerTest extends \PHPUnit_Framework_TestCase
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+class MemeControllerTest extends WebTestCase
 {
+    public function testIndexAction()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/');
+        $this->assertGreaterThan(0, $crawler->filter('h2')->count());
+    }
 }

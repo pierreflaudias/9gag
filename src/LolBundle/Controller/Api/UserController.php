@@ -30,7 +30,7 @@ class UserController extends Controller
         $user = $this->serializer->deserialize($request->getContent(), User::class, 'json');
         $this->get('user_creator')->registerUser($user);
 
-        return new JsonResponse(['message' => 'User '.$user->getUsername().' created.'], 201);
+        return new JsonResponse(['message' => 'User '.$user->getUsername().' created.', 'token' => $user->getApiKey()], 201);
     }
 
     public function showAction()

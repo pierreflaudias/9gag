@@ -42,14 +42,58 @@ Browse to : [http://localhost:8000/](http://localhost:8000/)
 phpunit
 ```
 
-## Routes for API
+## API routing
+> If authentication is required : send HTTP Header ```"X-AUTH-TOKEN: user_token"```
 
-#### GET &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/ -> list LOLs
-#### GET &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/meme/{id} -> one specific LOL
-#### DELETE &nbsp;&nbsp;/api/meme/{id}/remove -> remove one specific LOL
-#### DELETE &nbsp;&nbsp;/api/meme/{id}/comment/{comment_id} -> remove one specific comment for one specific  LOL
-#### POST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/meme -> create a LOL
-#### POST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/meme/{id}/comment -> create a comment for one specific LOL
-#### GET &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/meme/{id}/{note} -> note a specific LOL
-#### POST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/register -> register a new user
-#### GET &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/user -> get information for the user sending token
+### Group LOL
+
+#### GET &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/
+- Retrieve list of LOLs
+
+#### GET &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/meme/{id}
+- Retrieve LOL with id = {id}
+
+#### POST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/meme 
+> authentication is required
+- Create a LOL
+
+#### DELETE &nbsp;&nbsp;/api/meme/{id}/remove
+> authentication is required
+- Remove LOL with id = {id}
+
+### Group Comment
+
+#### POST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/meme/{id}/comment
+> authentication is required
+- Create a comment for LOL with id = {id}
+- Body :
+    ```json
+    {
+        "content": "My comment"
+    }
+    ```
+    
+#### DELETE &nbsp;&nbsp;/api/meme/{id}/comment/{comment_id}
+> authentication is required
+- Remove a comment with id = {comment_id} for LOL with id = {id}
+
+#### GET &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/meme/{id}/{note}
+> authentication is required
+- Note LOL with id = {id} and {note} = downvote | upvote
+
+### Group User
+
+#### POST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/register
+- Register a new user
+- Body : 
+    ```json
+    {
+        "username": "toto",
+        "email": "toto@gmail.com",
+        "password": "123456"
+     }
+     ```
+
+#### GET &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/user
+> authentication is required
+- Retrieve information about user

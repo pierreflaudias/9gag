@@ -8,17 +8,40 @@
 
 namespace LolBundle\Service;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityManager;
+use LolBundle\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 class UserCreatorTest extends \PHPUnit_Framework_TestCase
 {
-    private $em;
+    private $userCreator;
 
     public function testRegisterUser()
     {
-        $this->em = $this
-            ->getMockBuilder(EntityRepository::class)
+        $mockUser = $this->createMock(User::class);
+
+        $mockUser->expects($this->once())
+            ->method('getPlainPassword')
+            ->will($this->returnValue('plain_password'));
+
+        $em = $this
+            ->getMockBuilder(EntityManager::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $encoder = $this
+            ->getMockBuilder(UserPasswordEncoder::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $encoder->expects($this->once())
+            ->method('encodePassword')
+            ->will($this->returnValue('hashed_password'));
+
+        $this->userCreator = new UserCreator($em, $encoder);
+
+        $this->userCreator->registerUser($mockUser);
+
+        $this->assertEquals('hashed_password', $mockUser->getPassword());
     }
 }
