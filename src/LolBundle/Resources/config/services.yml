@@ -1,19 +1,19 @@
 services:
     lol.encoder.json:
-        class: 'Symfony\Component\Serializer\Encoder\JsonEncoder'
+        class: Symfony\Component\Serializer\Encoder\JsonEncoder
 
     lol.normalizer.meme:
-        class: 'LolBundle\Service\MemeNormalizer'
+        class: LolBundle\Service\MemeNormalizer
 
     lol.normalizer.comment:
-        class: 'LolBundle\Service\CommentNormalizer'
+        class: LolBundle\Service\CommentNormalizer
 
     lol.normalizer.user:
-        class: 'LolBundle\Service\UserNormalizer'
+        class: LolBundle\Service\UserNormalizer
 
 
     lol.serializer.default:
-        class: 'Symfony\Component\Serializer\Serializer'
+        class: Symfony\Component\Serializer\Serializer
         arguments:
             0:
                 - '@lol.normalizer.meme'
@@ -35,19 +35,29 @@ services:
                 - LolBundle\Entity\Comment
 
     meme_reader:
-        class: 'LolBundle\Service\MemeReader'
+        class: LolBundle\Service\MemeReader
         arguments:
             - '@meme_repository'
+
+    meme_factory:
+        class: LolBundle\Service\MemeFactory
+        arguments:
+            - '@service_container'
+            - '@doctrine.orm.entity_manager'
+
+    meme_commenter:
+        class: LolBundle\Service\MemeCommenter
+        arguments:
+            - '@doctrine.orm.entity_manager'
 
     comment_reader:
         class: LolBundle\Service\CommentReader
         arguments:
             - '@comment_repository'
 
-    meme_modifier:
-        class: LolBundle\Service\MemeModifier
+    meme_note:
+        class: LolBundle\Service\MemeNote
         arguments:
-            - '@service_container'
             - '@doctrine.orm.entity_manager'
 
     user_creator:

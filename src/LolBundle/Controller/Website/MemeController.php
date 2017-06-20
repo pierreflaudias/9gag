@@ -44,7 +44,7 @@ class MemeController extends Controller
         }
         $meme = $this->get('meme_reader')->getOneById($id);
         if ($meme != null) {
-            $this->get('meme_modifier')->noteOne($meme, $note);
+            $this->get('meme_note')->noteOne($meme, $note);
         }
 
         return $this->redirectToRoute('lol_show_meme', [
@@ -58,7 +58,7 @@ class MemeController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser() !== $meme->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        $this->get('meme_modifier')->removeOne($meme);
+        $this->get('meme_factory')->removeOne($meme);
 
         return $this->redirectToRoute('lol_homepage');
     }
@@ -71,7 +71,7 @@ class MemeController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser() !== $meme->getUser() || $this->getUser() !== $comment->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        $this->get('meme_modifier')->removeComment($comment);
+        $this->get('meme_commenter')->removeComment($comment);
 
         return $this->redirectToRoute('lol_show_meme', [
             'id' => $meme->getId(),
@@ -93,7 +93,7 @@ class MemeController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('meme_modifier')->createOne($meme, $this->getUser());
+            $this->get('meme_factory')->createOne($meme, $this->getUser());
 
             return $this->redirectToRoute('lol_homepage');
         }
@@ -120,7 +120,7 @@ class MemeController extends Controller
             if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
                 throw $this->createAccessDeniedException();
             }
-            $this->get('meme_modifier')->addComment($meme, $this->getUser(), $comment);
+            $this->get('meme_commenter')->addComment($meme, $this->getUser(), $comment);
 
             return $this->redirectToRoute('lol_show_meme', [
                 'id' => $meme->getId(),

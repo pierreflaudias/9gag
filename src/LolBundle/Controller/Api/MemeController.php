@@ -51,7 +51,7 @@ class MemeController extends Controller
         }
         $meme = $this->get('meme_reader')->getOneById($id);
         if ($meme != null) {
-            $this->get('meme_modifier')->noteOne($meme, $note);
+            $this->get('meme_note')->noteOne($meme, $note);
 
             return new JsonResponse(['message' => $this->getUser()->getUsername().' have marked '.$note.' for '.$meme->getTitle()]);
         } else {
@@ -69,7 +69,7 @@ class MemeController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser() !== $meme->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        $this->get('meme_modifier')->removeOne($meme);
+        $this->get('meme_factory')->removeOne($meme);
 
         return new JsonResponse(null, 204);
     }
@@ -87,7 +87,7 @@ class MemeController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') || $this->getUser() !== $meme->getUser() || $this->getUser() !== $comment->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        $this->get('meme_modifier')->removeComment($comment);
+        $this->get('meme_commenter')->removeComment($comment);
 
         return new JsonResponse(null, 204);
     }
@@ -117,7 +117,7 @@ class MemeController extends Controller
         }
         $data = ['image' => $request->files->get('image'), 'title' => json_decode($request->get('content'))->title];
         $meme = $this->serializer->denormalize($data, Meme::class, 'json');
-        $this->get('meme_modifier')->createOne($meme, $this->getUser());
+        $this->get('meme_factory')->createOne($meme, $this->getUser());
 
         return new JsonResponse(['message' => 'LOL '.$meme->getId().' created'], 201);
     }
@@ -134,7 +134,7 @@ class MemeController extends Controller
         }
         $meme = $this->get('meme_reader')->getOneById($id);
         $comment = $this->serializer->deserialize($request->getContent(), Comment::class, 'json');
-        $this->get('meme_modifier')->addComment($meme, $this->getUser(), $comment);
+        $this->get('meme_commenter')->addComment($meme, $this->getUser(), $comment);
 
         return new JsonResponse(['message' => 'Comment added to LOL '.$meme->getId()], 201);
     }
