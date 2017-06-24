@@ -1,5 +1,7 @@
 # Travail accompli :
 
+# Pierre FLAUDIAS et Antoine ALBESSARD
+
 ## Site fonctionnel
 
 - Site de base 9GAG
@@ -16,9 +18,9 @@
 ## Outils utilisés
 
 - Docker pour la base de données
-- Doctrine fixtures pour pré-remplir une base de données (simple à mettre en place)
-- Symfony serializer pour sérializer les entités (permet de choisir que renvoyer à l'utilisateur de l'API et de faire ça dans un service)
-- Symfony Guard pour la sécurité
+- Doctrine fixtures pour pré-remplir une base de données (simple à mettre en place et utilise les commandes Symfony)
+- Symfony serializer pour sérializer les entités (permet de choisir quels attributs renvoyer à l'utilisateur de l'API et de faire le dans un service)
+- Symfony Guard pour la sécurité (authentification simple et customizable avec un firewall et un token)
 - Utilisation de Bootstrap
 
 ## Tests
