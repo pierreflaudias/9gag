@@ -32,6 +32,7 @@ composer install
 ```
 In app/config/parameter.yml :
 > Change database_port: docker mapped port (docker ps)
+
 > Add this line -> memes_images_directory: '%kernel.root_dir%/../web/uploads/memes'
 ```
 php bin/console doctrine:schema:update --force
