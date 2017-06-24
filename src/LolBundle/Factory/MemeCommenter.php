@@ -6,7 +6,7 @@
  * Time: 11:46
  */
 
-namespace LolBundle\Service;
+namespace LolBundle\Factory;
 
 
 use Doctrine\ORM\EntityManager;

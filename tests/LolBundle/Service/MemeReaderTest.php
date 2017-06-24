@@ -10,8 +10,9 @@ namespace LolBundle\Service;
 
 use Doctrine\ORM\EntityRepository;
 use LolBundle\Entity\Meme;
+use LolBundle\Reader\MemeReader;
 
-class MemeReaderTest extends \PHPUnit_Framework_TestCase
+class MemeReaderTest extends \PHPUnit\Framework\TestCase
 {
     private $memeReader;
 
@@ -43,6 +44,7 @@ class MemeReaderTest extends \PHPUnit_Framework_TestCase
 
         $memes = $this->memeReader->getAll();
 
+        $this->assertContainsOnlyInstancesOf(Meme::class, $memes);
         $this->assertEquals('The title', $memes[0]->getTitle());
         $this->assertEquals('The title 2', $memes[1]->getTitle());
     }
@@ -68,6 +70,7 @@ class MemeReaderTest extends \PHPUnit_Framework_TestCase
 
         $meme = $this->memeReader->getOneById(1);
 
+        $this->assertInstanceOf(Meme::class, $meme);
         $this->assertEquals('The title', $meme->getTitle());
     }
 }

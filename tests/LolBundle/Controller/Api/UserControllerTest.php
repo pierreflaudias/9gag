@@ -8,6 +8,8 @@
 
 namespace LolBundle\Controller\Api;
 
-class UserControllerTest extends \PHPUnit_Framework_TestCase
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+class UserControllerTest extends WebTestCase
 {
 }

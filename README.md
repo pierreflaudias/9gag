@@ -36,6 +36,8 @@ php bin/console server:start
 
 Browse to : [http://localhost:8000/](http://localhost:8000/)
 
+##### 2 accounts : admin/admin, test/test
+
 ## Tests
 
 ```bash
@@ -44,6 +46,7 @@ phpunit
 
 ## API routing
 > If authentication is required : send HTTP Header ```"X-AUTH-TOKEN: user_token"```
+> Token in menu "username" -> My account
 
 ### Group LOL
 
@@ -56,6 +59,11 @@ phpunit
 #### POST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/api/meme 
 > authentication is required
 - Create a LOL
+
+A little bit difficult...
+
+It works with Servistate (chrome extension)
+Example : ![alt text](./example.png)
 
 #### DELETE &nbsp;&nbsp;/api/meme/{id}/remove
 > authentication is required

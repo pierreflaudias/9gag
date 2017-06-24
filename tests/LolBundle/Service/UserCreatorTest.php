@@ -10,9 +10,10 @@ namespace LolBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use LolBundle\Entity\User;
+use LolBundle\Factory\UserCreator;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
-class UserCreatorTest extends \PHPUnit_Framework_TestCase
+class UserCreatorTest extends \PHPUnit\Framework\TestCase
 {
     private $userCreator;
 

@@ -8,6 +8,6 @@
 
 namespace LolBundle\Service;
 
-class UserNormalizerTest extends \PHPUnit_Framework_TestCase
+class UserNormalizerTest extends \PHPUnit\Framework\TestCase
 {
 }

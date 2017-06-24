@@ -8,6 +8,8 @@
 
 namespace LolBundle\Controller\Api;
 
-class MemeControllerTest extends \PHPUnit_Framework_TestCase
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+class MemeControllerTest extends WebTestCase
 {
 }

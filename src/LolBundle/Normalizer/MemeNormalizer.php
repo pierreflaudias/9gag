@@ -6,7 +6,7 @@
  * Time: 10:41.
  */
 
-namespace LolBundle\Service;
+namespace LolBundle\Normalizer;
 
 use LolBundle\Entity\Meme;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

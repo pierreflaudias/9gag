@@ -6,7 +6,7 @@
  * Time: 13:40.
  */
 
-namespace LolBundle\Service;
+namespace LolBundle\Reader;
 
 use Doctrine\ORM\EntityRepository;
 

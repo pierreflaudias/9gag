@@ -10,8 +10,9 @@ namespace LolBundle\Service;
 
 use Doctrine\ORM\EntityRepository;
 use LolBundle\Entity\Comment;
+use LolBundle\Reader\CommentReader;
 
-class CommentReaderTest extends \PHPUnit_Framework_TestCase
+class CommentReaderTest extends \PHPUnit\Framework\TestCase
 {
     private $commentReader;
     
@@ -35,6 +36,7 @@ class CommentReaderTest extends \PHPUnit_Framework_TestCase
 
         $comment1 = $this->commentReader->getOneById(1);
 
+        $this->assertInstanceOf(Comment::class, $comment1);
         $this->assertEquals($comment1->getContent(), 'Hello');
     }
 }

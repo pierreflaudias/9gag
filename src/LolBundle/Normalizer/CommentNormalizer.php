@@ -6,7 +6,7 @@
  * Time: 11:02.
  */
 
-namespace LolBundle\Service;
+namespace LolBundle\Normalizer;
 
 use LolBundle\Entity\Comment;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

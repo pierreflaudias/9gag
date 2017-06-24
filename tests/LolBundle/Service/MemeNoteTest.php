@@ -9,7 +9,7 @@
 namespace LolBundle\Service;
 
 
-class MemeNoteTest extends \PHPUnit_Framework_TestCase
+class MemeNoteTest extends \PHPUnit\Framework\TestCase
 {
 
 }
